@@ -13,7 +13,6 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      searchResults = 
       break;
       default:
     app(people); // restart app
@@ -39,6 +38,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     // TODO: get person's info
+    displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -69,6 +69,7 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
+  @foundPerson = foundPerson[0];@
   return foundPerson;
 }
 
@@ -85,7 +86,16 @@ function displayPerson(person){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display
-  alert(personInfo);
+ @ personInfo += "id: " + person.id + "\n";
+  personInfo += "gender: " + person.gender + "\n";
+  personInfo += "dob: " + person.dob + "\n";
+  personInfo += "height:" + person.height + "\n";
+  personInfo += "weight:" + person.weight + "\n";
+  personInfo += "eyeColor:" + person.eyeColor + "\n";
+  personInfo += "occupation:" + person.occupation + "\n";
+  personInfo += "parents:" + person.parents + "\n";
+  personInfo += "currentSpouse:" + person.currentSpouse + "\n";
+  alert(personInfo);@
 }
 
 // function that prompts and validates user input
@@ -103,6 +113,11 @@ function yesNo(input){
 
 // helper function to pass in as default promptFor validation
 function chars(input){
-  
   return true; // default validation only
+}
+
+
+
+function displayFamily(person){
+
 }
