@@ -42,6 +42,8 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
+    let foundFamily = displayFamily(person, people);
+    displayPeople(foundFamily);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -69,7 +71,7 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  @foundPerson = foundPerson[0];@
+  foundPerson = foundPerson[0];
   return foundPerson;
 }
 
@@ -86,7 +88,7 @@ function displayPerson(person){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display
- @ personInfo += "id: " + person.id + "\n";
+  personInfo += "id: " + person.id + "\n";
   personInfo += "gender: " + person.gender + "\n";
   personInfo += "dob: " + person.dob + "\n";
   personInfo += "height:" + person.height + "\n";
@@ -95,7 +97,7 @@ function displayPerson(person){
   personInfo += "occupation:" + person.occupation + "\n";
   personInfo += "parents:" + person.parents + "\n";
   personInfo += "currentSpouse:" + person.currentSpouse + "\n";
-  alert(personInfo);@
+  alert(personInfo);
 }
 
 // function that prompts and validates user input
@@ -118,6 +120,97 @@ function chars(input){
 
 
 
-function displayFamily(person){
+function displayFamily(person, people){
+  let parent = person.parents;
+  let spouse = person.currentSpouse;
+  let parentOne;
+  let parentTwo;
+  let family = []
+  let counter = 0;
+  for (let i = 0; i < parent.length; i++) {
+      counter = i;
+      switch(counter){
+        case 0:
+          parentOne = parent[i]
+          break;
+        case 1:
+          parentTwo = parent[i];
+          break;
+      }
+      counter++;
+  }
+  counter = 0;
+  let foundSpouce = people.filter(function(person){
+    if(person.id === spouse){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+  let  foundParentOne = people.filter(function(person){
+  if(person.id === parentOne){
+    return true;
+  }
+  else{ 
+    return false
+  }
+  });
+  let foundParentTwo = people.filter(function(person){
+  if(person.id === parentTwo){
+    return true;
+  }
+  else{
+    return false;
+  }
+  });
+if (foundSpouce.length > 0){
+  family.push(foundSpouce[0]);
+}
+if (foundParentOne.length > 0){
+  family.push(foundParentOne[0]);
+}
+if (foundParentTwo.length > 0){
+  family.push(foundParentTwo[0]);
+}
+return family;
+}
 
+
+
+/*function displayDescendants(person, people){
+  let parent = parent.id;
+  let  id = person.id
+  let childOne;
+  let childTwo;
+
+}for (let i = 0; i < parent.length; i++) {
+  counter = i;
+  switch(counter){
+    case 0:
+      childOne = id[i]
+      break;
+    case 1:
+      childTwo = id[i];
+      break;
+  }
+  counter++;
+}
+let foundChild = people.filter(function(person){
+  if (person.id === person.childOne)
+  return true;
+}
+else{
+  return false;
+}*/
+
+
+
+
+
+
+
+
+function DisplayTraits (person, people){
+  let eyeColor = person.eyeColor
 }
