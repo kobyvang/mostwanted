@@ -47,6 +47,7 @@ function mainMenu(person, people){
     break;
     case "descendants":
     // TODO: get person's descendants
+    displayDescendants(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -178,39 +179,24 @@ return family;
 
 
 
-/*function displayDescendants(person, people){
-  let parent = parent.id;
-  let  id = person.id
-  let childOne;
-  let childTwo;
 
-}for (let i = 0; i < parent.length; i++) {
-  counter = i;
-  switch(counter){
-    case 0:
-      childOne = id[i]
-      break;
-    case 1:
-      childTwo = id[i];
-      break;
+function displayDescendants(person, people){
+  let children = [];
+  let foundDescendants;
+  searchParent(person, people, 22, children);
+  foundDescendants = children;
+  
+  return foundDescendants;
+}
+
+function searchParent(person, people, offSpring, array){
+  let adult = people[offSpring-1];
+  if (offSpring > 0){
+    if (adult.parent[0] === person.id || adult.parent[1] === person.id){
+      array.push(people[offSpring-1]);
+    }
   }
-  counter++;
-}
-let foundChild = people.filter(function(person){
-  if (person.id === person.childOne)
-  return true;
-}
-else{
-  return false;
-}*/
-
-
-
-
-
-
-
-
-function DisplayTraits (person, people){
-  let eyeColor = person.eyeColor
+  if (offSpring > 0){
+    searchParent(person, people, offSpring-1, array);
+  }
 }
