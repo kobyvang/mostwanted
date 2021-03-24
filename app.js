@@ -13,8 +13,27 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      let
       break;
+
+
+
+
+
+
+
+      let searchByTrait;
+      searchByTrait = foundTrait(person,people);
+      displayPeople(foundTrait);
+
+
+
+
+
+
+
+
+
+
       default:
     app(people); // restart app
       break;
@@ -35,20 +54,20 @@ function mainMenu(person, people){
   }
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+
   switch(displayOption){
     case "info":
+      displayPerson(person)
     // TODO: get person's info
-    displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
-    let foundFamily = displayFamily(person, people);
-    displayPeople(foundFamily);
+      let searchFamily;
+      searchFamily =displayFamily(person,people);
+      displayPeople(searchFamily);
     break;
     case "descendants":
-    // TODO: get person's descendants
-    let foundDescendants = displayDescendants(person, people);
-    displayPeople(foundDescendants);
+      let foundDescendants = displayFamily(person, people);
+      displayPeople(foundDescendants);
     break;
     case "restart":
     app(people); // restart
@@ -59,6 +78,36 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
+
+
+function searchByTrait(people){
+
+  let eyeColor = promptFor("What is the persons eye color?" , + person.eyeColor);
+  let weight = promptFor("What is this persons weight?" , + person.weight);
+  let height = promptFor("What is this persons height?" , + person.height);
+  let gender = promptFor("What is this persons gender?", + person.gender)
+  let dob = promptFor("what is this persons date of birth?", + person.dob);
+  
+  let foundTrait = people.filter(function(person){
+    if (person.eyeColor === eyeColor && person.weight === weight && person.height === height && person.gender ===gender && person.dob === dob){
+      return true;
+    }
+    else{ 
+      return false;
+    }
+  })
+  foundTrait = foundTrait[0];
+return foundTrait;
+}
+//create separate functions for each trait search
+//in sesarchByTrait function, create a route that prompts the user if they want to search by each trait one at a time. If they say yes, then call that appropraite trait search
+
+
+
+
+
+
+
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
@@ -72,7 +121,6 @@ function searchByName(people){
       return false;
     }
   })
-  // TODO: find the person using the name they entered
   foundPerson = foundPerson[0];
   return foundPerson;
 }
@@ -90,16 +138,16 @@ function displayPerson(person){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display
-  personInfo += "id: " + person.id + "\n";
-  personInfo += "gender: " + person.gender + "\n";
-  personInfo += "dob: " + person.dob + "\n";
-  personInfo += "height:" + person.height + "\n";
-  personInfo += "weight:" + person.weight + "\n";
-  personInfo += "eyeColor:" + person.eyeColor + "\n";
-  personInfo += "occupation:" + person.occupation + "\n";
-  personInfo += "parents:" + person.parents + "\n";
-  personInfo += "currentSpouse:" + person.currentSpouse + "\n";
-  alert(personInfo);
+personInfo += "id " + person.id + "\n";
+personInfo += "gender " + person.gender +"\n";
+personInfo += "dob " + person.dob + "\n";
+personInfo += "height " + person.height + "\n";
+personInfo += "weight " + personInfo.weight + "\n";
+personInfo += "eyeColor" + person.eyeColor + "\n";
+personInfo += "occupation" + person.occupation + "\n";
+personInfo += "parents" + personInfo.parents + "\n";
+personInfo += "currentSpouse" + personInfo + "\n";
+alert(personInfo);  
 }
 
 // function that prompts and validates user input
@@ -108,19 +156,21 @@ function promptFor(question, valid){
     var response = prompt(question).trim();
   } while(!response || !valid(response));
   return response;
+
 }
+
 
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
+
+
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
 }
-
-
 
 function displayFamily(person, people){
   let parent = person.parents;
@@ -130,19 +180,19 @@ function displayFamily(person, people){
   let family = []
   let counter = 0;
   for (let i = 0; i < parent.length; i++) {
-      counter = i;
-      switch(counter){
-        case 0:
-          parentOne = parent[i]
-          break;
-        case 1:
-          parentTwo = parent[i];
-          break;
-      }
-      counter++;
+    counter = i;
+    switch(counter){
+      case 0:
+      parentOne = parent[i];
+      break;
+      case 1:
+        parentTwo = parent[i];
+        break;
+    }
+    counter++;
   }
   counter = 0;
-  let foundSpouce = people.filter(function(person){
+  let foundSpouse = people.filter(function(person){
     if(person.id === spouse){
       return true;
     }
@@ -150,24 +200,24 @@ function displayFamily(person, people){
       return false;
     }
   });
-  let  foundParentOne = people.filter(function(person){
-  if(person.id === parentOne){
+  let foundParentOne = people.filter(function(person){
+    if (person.id === parentOne){
     return true;
   }
-  else{ 
-    return false
-  }
-  });
-  let foundParentTwo = people.filter(function(person){
-  if(person.id === parentTwo){
-    return true;
-  }
-  else{
+  else {
     return false;
   }
-  });
-if (foundSpouce.length > 0){
-  family.push(foundSpouce[0]);
+});
+let foundParentTwo = people.filter(function(person){
+  if (person.id === parentTwo){
+    return true;
+  }
+  else {
+    return false;
+  }
+});
+if (foundSpouse.length > 0){
+ family.push(foundSpouse[0]);
 }
 if (foundParentOne.length > 0){
   family.push(foundParentOne[0]);
@@ -176,33 +226,27 @@ if (foundParentTwo.length > 0){
   family.push(foundParentTwo[0]);
 }
 return family;
+
 }
-
-
 
 
 function displayDescendants(person, people){
   let children = [];
-  let foundDescendants = searchParent(person, people, 22, children);
+  let foundDescendants =searchParent(person, people, 22, children);
   foundDescendants = children;
   console.log(foundDescendants);
   return foundDescendants;
 }
 
 function searchParent(person, people, offSpring, array){
-  let adult = people[offSpring-1];
-  if (offSpring > 0){
+  let adult = people[offSpring -1];
+  if(offSpring > 0){
     if (adult.parents[0] === person.id || adult.parents[1] === person.id){
-      array.push(people[offSpring-1]);
-    }
-  }
-  if (offSpring > 0){
-    searchParent(person, people, offSpring-1, array);
+      array.push(people[offSpring -1]);
   }
 }
-
-
-
-function displayEyeColor  (person, people){
-  
+if (offSpring > 0){
+  searchParent(person, people, offSpring-1, array);
+ }
 }
+
