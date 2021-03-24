@@ -13,6 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+      let
       break;
       default:
     app(people); // restart app
@@ -34,7 +35,6 @@ function mainMenu(person, people){
   }
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-
   switch(displayOption){
     case "info":
     // TODO: get person's info
@@ -199,4 +199,10 @@ function searchParent(person, people, offSpring, array){
   if (offSpring > 0){
     searchParent(person, people, offSpring-1, array);
   }
+}
+
+
+
+function displayEyeColor  (person, people){
+  
 }
